@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
+import TopRow from "./TopRow";
 
 function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
@@ -9,17 +10,12 @@ function App() {
   const [awayScore, setAwayScore] = useState(0);
   const [quarter, setQuarter] = useState(1);
 
-
   const changeScore = (teamName, amount) => {
     teamName === 'home'? setHomeScore(homeScore + amount) : setAwayScore(awayScore + amount);
   }
 
   const changeQuarter = () =>{
-    if (quarter === 4){
-      setQuarter(1);
-    }else{
-      setQuarter(quarter + 1);
-    }
+    setQuarter(quarter % 4 + 1)
   }
 
   return (
@@ -29,25 +25,6 @@ function App() {
         <BottomRow quarter={quarter}/>
       </section>
       <ButtonGroup changeScore={changeScore} changeQuarter={changeQuarter}/>
-    </div>
-  );
-}
-
-function TopRow({homeScore, awayScore}){
-  return(
-    <div className="topRow">
-    <div className="home">
-      <h2 className="home__name">Lions</h2>
-
-      {/* TODO STEP 3 - We need to change the hardcoded values in these divs to accept dynamic values from our state. */}
-
-      <div className="home__score">{homeScore}</div>
-    </div>
-    <div className="timer">00:03</div>
-    <div className="away">
-      <h2 className="away__name">Tigers</h2>
-      <div className="away__score">{awayScore}</div>
-    </div>
     </div>
   );
 }
